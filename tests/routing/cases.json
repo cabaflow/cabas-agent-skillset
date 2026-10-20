@@ -1,0 +1,576 @@
+[
+ {
+  "id": 1,
+  "q": "Agrégale un login con Google a mi app de Next.js con Supabase",
+  "req": [
+   "supabase"
+  ],
+  "ok": [
+   "brainstorming",
+   "vercel-react-best-practices",
+   "supabase-postgres-best-practices"
+  ]
+ },
+ {
+  "id": 2,
+  "q": "Este botón de la landing se ve feo, púlelo",
+  "req": [
+   "impeccable"
+  ],
+  "ok": [
+   "emil-design-eng",
+   "ui-convergence"
+  ]
+ },
+ {
+  "id": 3,
+  "q": "El modal se abre de golpe, quiero que aparezca suave",
+  "req": [
+   "animate"
+  ],
+  "ok": [
+   "motion"
+  ]
+ },
+ {
+  "id": 4,
+  "q": "Me gusta cómo se ve la página de Apple, los botones, los colores moviéndose, ese banner. Quiero algo así para mi landing",
+  "req": [
+   "ui-capture",
+   "extract-design-system"
+  ],
+  "ok": [
+   "impeccable",
+   "ui-convergence",
+   "animate"
+  ]
+ },
+ {
+  "id": 5,
+  "q": "Clona exactamente el hero de linear.app en mi proyecto",
+  "req": [
+   "ui-reverse-engineering"
+  ],
+  "ok": [
+   "ui-capture"
+  ]
+ },
+ {
+  "id": 6,
+  "q": "Me falla este test con TypeError: cannot read properties of undefined (reading 'user')",
+  "req": [
+   "systematic-debugging"
+  ],
+  "ok": []
+ },
+ {
+  "id": 7,
+  "q": "Quiero hacer una app de hábitos, todavía no sé bien cómo",
+  "req": [
+   "brainstorming"
+  ],
+  "ok": []
+ },
+ {
+  "id": 8,
+  "q": "Ya terminé el dashboard, revisa que esté listo para mostrárselo al cliente",
+  "req": [
+   "honest-delivery"
+  ],
+  "ok": [
+   "break-ui",
+   "playwright-cli",
+   "dataviz"
+  ]
+ },
+ {
+  "id": 9,
+  "q": "¿Cómo se llama el efecto de rebote cuando haces scroll al final en iOS?",
+  "req": [
+   "animation-vocabulary"
+  ],
+  "ok": [],
+  "core": {
+   "req": [],
+   "ok": []
+  }
+ },
+ {
+  "id": 10,
+  "q": "Revisa si este PR que toca los permisos de usuarios tiene problemas de seguridad",
+  "req": [
+   "differential-review"
+  ],
+  "ok": [
+   "variant-analysis",
+   "audit-context-building"
+  ]
+ },
+ {
+  "id": 11,
+  "q": "Quiero que el bottom sheet se pueda arrastrar y suelte con rebote como en iOS",
+  "req": [
+   "apple-design"
+  ],
+  "ok": [
+   "animate",
+   "motion"
+  ]
+ },
+ {
+  "id": 12,
+  "q": "La animación del carrusel se traba en el celular",
+  "req": [
+   "animation-performance"
+  ],
+  "ok": [
+   "review-animations",
+   "systematic-debugging"
+  ]
+ },
+ {
+  "id": 13,
+  "q": "Saca los colores, tipografías y espaciados de stripe.com",
+  "req": [
+   "extract-design-system"
+  ],
+  "ok": [
+   "ui-capture"
+  ]
+ },
+ {
+  "id": 14,
+  "q": "Implementa el plan que está en docs/plan.md",
+  "req": [],
+  "ok": [
+   "brainstorming"
+  ]
+ },
+ {
+  "id": 15,
+  "q": "Prueba el flujo de checkout de mi app en el navegador",
+  "req": [],
+  "anyof": [
+   "playwright-cli"
+  ],
+  "ok": [
+   "playwright-cli",
+   "honest-delivery"
+  ]
+ },
+ {
+  "id": 16,
+  "q": "Este componente de React tiene 20 props booleanas, ordénalo",
+  "req": [
+   "vercel-composition-patterns"
+  ],
+  "ok": [
+   "vercel-react-best-practices"
+  ]
+ },
+ {
+  "id": 17,
+  "q": "Diseña la tabla de usuarios con políticas RLS en Supabase",
+  "req": [
+   "supabase-postgres-best-practices"
+  ],
+  "ok": [
+   "supabase"
+  ]
+ },
+ {
+  "id": 18,
+  "q": "No me convence el hero, mantén la barra de arriba pero prueba otra composición",
+  "req": [
+   "ui-convergence"
+  ],
+  "ok": [
+   "impeccable"
+  ]
+ },
+ {
+  "id": 19,
+  "q": "Me dejaron estos comentarios en el code review, ¿cuáles debería aplicar?",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 20,
+  "q": "Hazme una landing para mi startup de café",
+  "req": [
+   "impeccable"
+  ],
+  "ok": [
+   "brainstorming",
+   "ui-convergence",
+   "impeccable"
+  ]
+ },
+ {
+  "id": 21,
+  "q": "Cambia el texto del botón de 'Enviar' a 'Guardar' en Form.tsx",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 22,
+  "q": "¿Qué hace la función parseDate de utils.ts?",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 23,
+  "q": "My login page throws a 500 error right after deploying",
+  "req": [
+   "systematic-debugging"
+  ],
+  "ok": []
+ },
+ {
+  "id": 24,
+  "q": "Arregla el bug del carrito que duplica productos y después anima el botón de agregar",
+  "req": [
+   "systematic-debugging",
+   "animate"
+  ],
+  "ok": []
+ },
+ {
+  "id": 25,
+  "q": "la wea del menú se ve como el pico, arréglala porfa",
+  "req": [
+   "impeccable"
+  ],
+  "ok": [
+   "emil-design-eng",
+   "ui-convergence"
+  ]
+ },
+ {
+  "id": 26,
+  "q": "el modal se abre muy brusco, ponle una animasion",
+  "req": [
+   "animate"
+  ],
+  "ok": [
+   "motion"
+  ]
+ },
+ {
+  "id": 27,
+  "q": "Quiero que en la lista se pueda deslizar para borrar como en la app Mail del iPhone",
+  "req": [
+   "apple-design"
+  ],
+  "ok": [
+   "animate",
+   "motion"
+  ]
+ },
+ {
+  "id": 28,
+  "q": "Agrega un botón de cerrar sesión en el header",
+  "req": [],
+  "ok": [
+   "impeccable"
+  ]
+ },
+ {
+  "id": 29,
+  "q": "Haz una página de precios parecida a la de vercel.com/pricing",
+  "req": [
+   "ui-capture",
+   "extract-design-system"
+  ],
+  "ok": [
+   "impeccable",
+   "ui-convergence"
+  ]
+ },
+ {
+  "id": 30,
+  "q": "Te pego una captura de un diseño de Dribbble, constrúyelo en mi app",
+  "req": [],
+  "anyof": [
+   "impeccable"
+  ],
+  "ok": [
+   "impeccable",
+   "ui-convergence",
+   "extract-design-system"
+  ]
+ },
+ {
+  "id": 31,
+  "q": "Review my PR for SQL injection risks",
+  "req": [
+   "differential-review"
+  ],
+  "ok": [
+   "variant-analysis"
+  ]
+ },
+ {
+  "id": 32,
+  "q": "Escribe tests para la función que parsea fechas en utils.ts",
+  "req": [],
+  "ok": [
+   "property-based-testing"
+  ]
+ },
+ {
+  "id": 33,
+  "q": "Quiero ver 3 versiones bien distintas del header para elegir una",
+  "req": [],
+  "ok": [
+   "impeccable",
+   "ui-convergence",
+   "brainstorming"
+  ],
+  "says": "/prototype"
+ },
+ {
+  "id": 34,
+  "q": "La lista de React que renderiza 5000 filas va lentísima, optimízala",
+  "req": [
+   "vercel-react-best-practices"
+  ],
+  "ok": [
+   "systematic-debugging",
+   "vercel-composition-patterns"
+  ]
+ },
+ {
+  "id": 35,
+  "q": "Necesito una auditoría de seguridad completa de todo el repo",
+  "req": [
+   "audit-context-building"
+  ],
+  "ok": [
+   "differential-review",
+   "variant-analysis",
+   "property-based-testing"
+  ],
+  "core": {
+   "req": [],
+   "ok": [
+    "differential-review"
+   ]
+  }
+ },
+ {
+  "id": 36,
+  "q": "Encontré un XSS en los comentarios, revisa si hay más casos así en el código",
+  "req": [
+   "variant-analysis"
+  ],
+  "ok": [
+   "differential-review",
+   "audit-context-building"
+  ],
+  "core": {
+   "req": [],
+   "ok": [
+    "differential-review"
+   ]
+  }
+ },
+ {
+  "id": 37,
+  "q": "Estoy armando una app de reservas para peluquerías: los clientes eligen hora, el peluquero confirma y se manda un recordatorio. Uso Next.js y Supabase. ¿Me ayudas a pensar cómo armar todo?",
+  "req": [
+   "brainstorming"
+  ],
+  "ok": [
+   "supabase",
+   "supabase-postgres-best-practices"
+  ]
+ },
+ {
+  "id": 38,
+  "q": "Ponle a la carga de archivos una barra de progreso que avance mientras sube",
+  "req": [],
+  "anyof": [
+   "honest-delivery",
+   "animate"
+  ],
+  "ok": [
+   "honest-delivery",
+   "animate",
+   "impeccable"
+  ]
+ },
+ {
+  "id": 39,
+  "q": "Crea una skill para mi flujo de deploy a producción",
+  "req": [],
+  "ok": [
+   "skill-creator"
+  ]
+ },
+ {
+  "id": 40,
+  "q": "¿Existe alguna skill para trabajar con Stripe?",
+  "req": [],
+  "ok": [
+   "find-skills"
+  ]
+ },
+ {
+  "id": 41,
+  "q": "Gracias, eso es todo por hoy",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 42,
+  "q": "Haz commit de los cambios con un buen mensaje",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 101,
+  "q": "Mi app de Expo se cierra apenas abro la cámara",
+  "req": [
+   "systematic-debugging"
+  ],
+  "ok": []
+ },
+ {
+  "id": 102,
+  "q": "Me encanta el estilo de la web de Notion, quiero esa vibra en mi dashboard",
+  "req": [
+   "ui-capture",
+   "extract-design-system"
+  ],
+  "ok": [
+   "impeccable",
+   "ui-convergence"
+  ]
+ },
+ {
+  "id": 103,
+  "q": "Haz que las tarjetas aparezcan una tras otra al hacer scroll",
+  "req": [
+   "animate"
+  ],
+  "ok": [
+   "motion"
+  ]
+ },
+ {
+  "id": 104,
+  "q": "Refactoriza este hook de React que hace demasiadas cosas",
+  "req": [],
+  "anyof": [
+   "vercel-composition-patterns",
+   "vercel-react-best-practices"
+  ],
+  "ok": [
+   "vercel-composition-patterns",
+   "vercel-react-best-practices"
+  ]
+ },
+ {
+  "id": 105,
+  "q": "Quiero una app para gestionar turnos de enfermería, ayúdame a definir el alcance",
+  "req": [
+   "brainstorming"
+  ],
+  "ok": []
+ },
+ {
+  "id": 106,
+  "q": "Revisa los cambios de este PR antes de mergear",
+  "req": [],
+  "ok": [
+   "code-review",
+   "differential-review"
+  ]
+ },
+ {
+  "id": 107,
+  "q": "Escribe una consulta SQL para sacar los usuarios activos del último mes en Supabase",
+  "req": [
+   "supabase-postgres-best-practices"
+  ],
+  "ok": [
+   "supabase"
+  ]
+ },
+ {
+  "id": 108,
+  "q": "El tooltip aparece con un salto raro",
+  "req": [],
+  "anyof": [
+   "animate",
+   "animation-performance"
+  ],
+  "ok": [
+   "animate",
+   "animation-performance",
+   "systematic-debugging"
+  ]
+ },
+ {
+  "id": 109,
+  "q": "Construye un dashboard de ventas para mi tienda online",
+  "req": [
+   "impeccable"
+  ],
+  "ok": [
+   "brainstorming",
+   "impeccable",
+   "honest-delivery",
+   "dataviz"
+  ]
+ },
+ {
+  "id": 110,
+  "q": "Los colores de mi app no tienen buen contraste",
+  "req": [
+   "impeccable"
+  ],
+  "ok": []
+ },
+ {
+  "id": 111,
+  "q": "Aplica las tareas del plan en paralelo, son independientes entre sí",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 112,
+  "q": "¿Cuál es la diferencia entre useMemo y useCallback?",
+  "req": [],
+  "ok": [
+   "vercel-react-best-practices"
+  ]
+ },
+ {
+  "id": 113,
+  "q": "Ya está lista la nueva versión de la app, ¿la puedo publicar?",
+  "req": [
+   "honest-delivery"
+  ],
+  "ok": [
+   "playwright-cli"
+  ]
+ },
+ {
+  "id": 114,
+  "q": "Recrea pixel perfect la página de inicio de stripe.com",
+  "req": [
+   "ui-reverse-engineering"
+  ],
+  "ok": [
+   "ui-capture"
+  ]
+ },
+ {
+  "id": 115,
+  "q": "Renombra la variable data a userData en todo el archivo",
+  "req": [],
+  "ok": []
+ }
+]

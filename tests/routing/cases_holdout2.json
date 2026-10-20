@@ -1,0 +1,198 @@
+[
+ {
+  "id": 201,
+  "q": "No quiero animaciones en esta pantalla, quítalas todas",
+  "req": [],
+  "ok": [
+   "animate"
+  ]
+ },
+ {
+  "id": 202,
+  "q": "Hay un error de tipeo en el título, corrígelo: dice 'Bienvenidso'",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 203,
+  "q": "Mi página de inicio se ve muy plana y genérica, dale más vida",
+  "req": [],
+  "ok": [
+   "animate",
+   "find-animation-opportunities",
+   "ui-convergence",
+   "impeccable"
+  ],
+  "anyof": [
+   "impeccable"
+  ]
+ },
+ {
+  "id": 204,
+  "q": "Copia la paleta de colores de airbnb.com para mi app",
+  "req": [
+   "extract-design-system"
+  ],
+  "ok": [
+   "ui-capture"
+  ]
+ },
+ {
+  "id": 205,
+  "q": "El build de Next.js falla en Vercel con 'Module not found'",
+  "req": [
+   "systematic-debugging"
+  ],
+  "ok": []
+ },
+ {
+  "id": 206,
+  "q": "Agrega autenticación con magic link usando Supabase",
+  "req": [
+   "supabase"
+  ],
+  "ok": [
+   "supabase-postgres-best-practices"
+  ]
+ },
+ {
+  "id": 207,
+  "q": "Quiero que el menú lateral se abra deslizándose desde la izquierda",
+  "req": [
+   "animate"
+  ],
+  "ok": [
+   "motion",
+   "apple-design"
+  ]
+ },
+ {
+  "id": 208,
+  "q": "Revisa mi código de pagos, ¿hay algún riesgo de seguridad en los cambios?",
+  "req": [
+   "differential-review"
+  ],
+  "ok": [
+   "audit-context-building",
+   "variant-analysis"
+  ]
+ },
+ {
+  "id": 209,
+  "q": "Tengo la idea de una red social para músicos, ¿por dónde parto?",
+  "req": [
+   "brainstorming"
+  ],
+  "ok": []
+ },
+ {
+  "id": 210,
+  "q": "Escribe pruebas unitarias para el carrito de compras",
+  "req": [],
+  "ok": [
+   "property-based-testing"
+  ]
+ },
+ {
+  "id": 211,
+  "q": "La web de mi tienda se demora mucho en cargar",
+  "req": [],
+  "ok": [
+   "impeccable",
+   "systematic-debugging",
+   "vercel-react-best-practices"
+  ],
+  "anyof": [
+   "systematic-debugging",
+   "vercel-react-best-practices"
+  ]
+ },
+ {
+  "id": 212,
+  "q": "Quiero que mi landing se sienta como la de stripe",
+  "req": [
+   "ui-capture",
+   "extract-design-system"
+  ],
+  "ok": [
+   "impeccable",
+   "ui-convergence"
+  ]
+ },
+ {
+  "id": 213,
+  "q": "Me pasaron feedback del PR, ayúdame a responderlo",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 214,
+  "q": "Recrea la sección de testimonios de framer.com tal cual",
+  "req": [
+   "ui-reverse-engineering"
+  ],
+  "ok": [
+   "ui-capture"
+  ]
+ },
+ {
+  "id": 215,
+  "q": "Lista los archivos de la carpeta src",
+  "req": [],
+  "ok": []
+ },
+ {
+  "id": 216,
+  "q": "Haz un dashboard de métricas para mi SaaS",
+  "req": [
+   "impeccable"
+  ],
+  "ok": [
+   "dataviz",
+   "brainstorming",
+   "impeccable",
+   "honest-delivery"
+  ]
+ },
+ {
+  "id": 217,
+  "q": "El spinner de carga gira entrecortado",
+  "req": [
+   "animation-performance"
+  ],
+  "ok": [
+   "animate",
+   "systematic-debugging"
+  ]
+ },
+ {
+  "id": 218,
+  "q": "Antes de entregarle la app al cliente, verifica que todo esté bien",
+  "req": [
+   "honest-delivery"
+  ],
+  "ok": [
+   "playwright-cli"
+  ]
+ },
+ {
+  "id": 219,
+  "q": "Make the cards fade in when they scroll into view",
+  "req": [
+   "animate"
+  ],
+  "ok": [
+   "motion"
+  ]
+ },
+ {
+  "id": 220,
+  "q": "Optimize this Supabase query, it's really slow",
+  "req": [
+   "supabase-postgres-best-practices"
+  ],
+  "ok": [
+   "supabase"
+  ]
+ }
+]

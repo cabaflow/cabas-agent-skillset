@@ -1,0 +1,33 @@
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  checks:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Shell syntax
+        run: |
+          for f in install.sh uninstall.sh tests/routing/setup.sh; do bash -n "$f"; done
+      - name: Gate unit test
+        run: node tests/gate/test.mjs
+      - name: Install plan
+        run: bash install.sh --list
+      - name: Install and uninstall in a clean home
+        run: |
+          export HOME="$RUNNER_TEMP/home" && mkdir -p "$HOME"
+          bash install.sh --agents claude-code
+          test -f "$HOME/.claude/CLAUDE.md"
+          grep -q '"name-only"' "$HOME/.claude/settings.json"
+          bash uninstall.sh --agents claude-code
+          ! grep -q "agent-basic-skillset:start" "$HOME/.claude/CLAUDE.md"
+          ! grep -q '"name-only"' "$HOME/.claude/settings.json"
+      - name: Update checker syntax
+        run: python3 -m py_compile scripts/check-updates.py

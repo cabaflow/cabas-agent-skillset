@@ -1,0 +1,61 @@
+name: update-pins
+# Once a month, compare each pinned skill folder with upstream HEAD and open one PR with only
+# the skills whose files changed. Review the diff links in the PR before merging: an upstream
+# change can alter what the skill tells the agent to do.
+on:
+  schedule:
+    - cron: "17 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Compare pinned skills with upstream
+        id: check
+        run: |
+          set +e
+          python3 scripts/check-updates.py --write --report "$RUNNER_TEMP/report.md"
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          if git diff --quiet manifest/skills.tsv; then echo "changed=0" >> "$GITHUB_OUTPUT"; else echo "changed=1" >> "$GITHUB_OUTPUT"; fi
+      - name: Cheap checks
+        if: steps.check.outputs.changed == '1'
+        run: |
+          for f in install.sh uninstall.sh tests/routing/setup.sh; do bash -n "$f"; done
+          node tests/gate/test.mjs
+          bash install.sh --list
+      - name: Install the new pins in a clean home
+        if: steps.check.outputs.changed == '1'
+        run: |
+          export HOME="$RUNNER_TEMP/home" && mkdir -p "$HOME"
+          bash install.sh --agents claude-code
+          bash uninstall.sh --agents claude-code
+      - name: Open or update the PR
+        if: steps.check.outputs.changed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="bot/update-pins"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$branch"
+          git commit -am "Update pinned skills ($(date -u +%Y-%m))"
+          git push --force origin "$branch"
+          if gh pr view "$branch" >/dev/null 2>&1; then
+            gh pr edit "$branch" --body-file "$RUNNER_TEMP/report.md"
+          else
+            gh pr create --head "$branch" --title "Update pinned skills ($(date -u +%Y-%m))" --body-file "$RUNNER_TEMP/report.md"
+          fi
+      - name: Fail if some skill could not be checked
+        if: steps.check.outputs.status != '0'
+        run: |
+          cat "$RUNNER_TEMP/report.md"
+          exit 1

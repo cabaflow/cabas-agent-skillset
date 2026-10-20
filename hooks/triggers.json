@@ -1,0 +1,231 @@
+{
+ "_doc": "Local pre-router. Each rule: skills to suggest, 'any' = regexes on the normalized prompt (lowercase, no accents). 'not' = regexes that cancel the rule. Rules are checked in order; a rule with \"stop\" ends the search; at most 3 skills are suggested.",
+ "rules": [
+  {
+   "skills": [
+    "ui-reverse-engineering",
+    "ui-capture"
+   ],
+   "any": [
+    "\\b(clona|clonar|clone|recrea|recreate|replica|pixel ?perfect|igualito|exactamente igual|tal cual)\\b"
+   ],
+   "stop": true
+  },
+  {
+   "skills": [
+    "ui-capture",
+    "extract-design-system"
+   ],
+   "any": [
+    "\\b(me gusta|me encanta|me fascina|i like|i love|parecid[oa]|similar|inspirad[oa]|estilo de|vibra de|como (la|el) (web|pagina|sitio|app) de|like (the )?[a-z0-9.]+(\\.com| site| website))\\b",
+    "\\b(web|pagina|sitio|landing|site) de [a-z0-9]+",
+    "[a-z0-9-]+\\.(com|app|io|dev|so|ai|co)\\b"
+   ],
+   "not": [
+    "\\b(clona|clonar|clone|recrea|pixel ?perfect)\\b"
+   ],
+   "needs": [
+    "\\b(web|pagina|sitio|site|website|landing|app|dashboard|estilo|diseno|design|vibra|look|header|hero|banner|boton|botones|colores|pricing|precios)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "extract-design-system"
+   ],
+   "any": [
+    "\\b(saca|extrae|extract|obten|pull)\\b.*\\b(colores|tipografias?|fuentes|espaciados?|tokens|colors|fonts|typography)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "systematic-debugging"
+   ],
+   "any": [
+    "\\b(bug|error|falla|fallo|crash|se cae|se cierra|se rompe|no funciona|no anda|exception|stack ?trace|typeerror|undefined|500|404|broken|throws|failing)\\b"
+   ],
+   "not": [
+    "\\bno hay (ningun )?error\\b"
+   ]
+  },
+  {
+   "skills": [
+    "animation-performance"
+   ],
+   "any": [
+    "\\b(se traba|tironea|lag|jank|stutter|fps|va lent[oa])\\b.*\\b(anima|animacion|carrusel|scroll|transicion)",
+    "\\b(anima\\w*|carrusel|transicion\\w*)\\b.*\\b(se traba|tironea|lag|jank|stutter|lent[oa])\\b"
+   ],
+   "stop": true
+  },
+  {
+   "skills": [
+    "animation-vocabulary"
+   ],
+   "any": [
+    "\\bcomo se llama (el|ese|este) efecto\\b",
+    "\\bwhat'?s (it|the effect) called\\b",
+    "\\bnombre (del|de ese) efecto\\b"
+   ],
+   "stop": true
+  },
+  {
+   "skills": [
+    "apple-design"
+   ],
+   "any": [
+    "\\b(arrastra\\w*|desliza\\w*|swipe|drag|sheet|bottom ?sheet|spring|rebote|gesto|gestos)\\b.*\\b(ios|iphone|apple|mail)\\b",
+    "\\b(ios|iphone)\\b.*\\b(arrastra\\w*|desliza\\w*|swipe|drag|sheet|gesto)"
+   ]
+  },
+  {
+   "skills": [
+    "animate"
+   ],
+   "any": [
+    "\\b(anima\\w*|animasion|transicion\\w*|aparezca suave|de golpe|brusco|fade|suavemente|transition|animate|motion)\\b",
+    "\\baparezcan? (una tras otra|de a una|al hacer scroll)\\b",
+    "\\b(aparece|aparecen|abre|abren) con un salto\\b",
+    "\\bsalto raro\\b"
+   ],
+   "not": [
+    "\\b(sin|no quiero|quita|elimina) (las )?animaciones\\b"
+   ]
+  },
+  {
+   "skills": [
+    "honest-delivery"
+   ],
+   "any": [
+    "\\b(esta listo|esta lista|listo para|lista para|la puedo publicar|lo puedo publicar|puedo publicar|revisa que este|ready to ship|ready for|barra de progreso|progress bar|demo para)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "brainstorming"
+   ],
+   "any": [
+    "\\b(no se (bien )?como|todavia no se|ayudame a (pensar|definir)|definir el alcance|idea de app|quiero (hacer|armar|crear) una app|how should i|help me think)\\b",
+    "\\b(me )?ayudas? a pensar\\b"
+   ]
+  },
+  {
+   "skills": [
+    "variant-analysis"
+   ],
+   "any": [
+    "\\b(hay mas casos|mas casos asi|busca si hay mas|other instances|more like this)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "audit-context-building"
+   ],
+   "any": [
+    "\\bauditoria de seguridad (completa|de todo)\\b",
+    "\\bfull security audit\\b"
+   ]
+  },
+  {
+   "skills": [
+    "differential-review"
+   ],
+   "any": [
+    "\\b(seguridad|vulnerabilidad\\w*|inyeccion|injection|xss|security|permisos)\\b.*\\b(pr|diff|cambios|pull request|change)\\b",
+    "\\b(pr|diff|pull request)\\b.*\\b(seguridad|vulnerab\\w*|injection|inyeccion|security|permisos)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "ui-convergence"
+   ],
+   "any": [
+    "\\b(mant[eé]n|conserva|keep)\\b.*\\b(prueba|cambia|otra|change|try)\\b",
+    "\\bno me convence\\b"
+   ]
+  },
+  {
+   "skills": [
+    "supabase-postgres-best-practices"
+   ],
+   "any": [
+    "\\b(rls|politicas|sql|consulta|query|schema|esquema|tabla)\\b.*\\bsupabase\\b",
+    "\\bsupabase\\b.*\\b(rls|politicas|sql|consulta|query|schema|esquema|tabla)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "supabase"
+   ],
+   "any": [
+    "\\bsupabase\\b"
+   ]
+  },
+  {
+   "skills": [
+    "vercel-composition-patterns"
+   ],
+   "any": [
+    "\\b(props|componente|component|hook)\\b.*\\b(react)\\b.*\\b(ordena|refactor\\w*|limpia|demasiad\\w*)\\b",
+    "\\b(refactoriza|refactor)\\b.*\\b(componente|hook|component)\\b",
+    "\\bprops booleanas\\b"
+   ]
+  },
+  {
+   "skills": [
+    "vercel-react-best-practices"
+   ],
+   "any": [
+    "\\breact\\b.*\\b(lent[oa]|lentisim[oa]|performance|rendimiento|optimiza\\w*|re-?render\\w*)\\b",
+    "\\b(renderiza|render)\\b.*\\b\\d{3,}\\b"
+   ]
+  },
+  {
+   "skills": [
+    "playwright-cli"
+   ],
+   "any": [
+    "\\b(prueba|testea|test)\\b.*\\b(en el navegador|in the browser|flujo)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "impeccable"
+   ],
+   "any": [
+    "\\b(hazme|haz|crea|construye|disena|build|create|design)\\b.*\\b(landing|pagina|dashboard|sitio|web|page|site)\\b",
+    "\\b(construyelo|implementalo|hazlo|build it)\\b.*\\b(app|pagina|sitio|proyecto)\\b",
+    "\\b(captura|screenshot|mockup|figma|dribbble)\\b.*\\b(construye\\w*|implementa\\w*|haz\\w*)\\b"
+   ]
+  },
+  {
+   "skills": [
+    "impeccable"
+   ],
+   "any": [
+    "\\b(se ve (feo|mal|como el pico)|puli\\w*|pule\\w*|polish|contraste|contrast|se ve generic\\w*|mejora el diseno)\\b"
+   ]
+  }
+ ],
+ "slash": [
+  {
+   "command": "/prototype",
+   "any": [
+    "\\b(\\d|tres|varias|several|multiple)\\b.*\\b(versiones|variantes|versions|variants)\\b"
+   ]
+  },
+  {
+   "command": "/pick-ui-library",
+   "any": [
+    "\\bque libreria\\b.*\\b(ui|componentes|dropdown|tabla|date ?picker)\\b",
+    "\\bwhich (ui )?library\\b"
+   ]
+  },
+  {
+   "command": "/review-animations",
+   "any": [
+    "\\brevisa (esta|la|mis) animacion(es)?\\b",
+    "\\breview (this|my) animation\\b"
+   ]
+  }
+ ]
+}

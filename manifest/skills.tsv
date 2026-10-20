@@ -1,0 +1,32 @@
+# group	repository	skill	license	pinned commit
+method	obra/superpowers	brainstorming	MIT	bb92a77741419a4ab5f06e711a283343f1ada0c3
+method	obra/superpowers	systematic-debugging	MIT	bb92a77741419a4ab5f06e711a283343f1ada0c3
+design	pbakaus/impeccable	impeccable	Apache-2.0	08d5b470495d242ca0470f4aeae1956c3a074f83
+design	emilkowalski/skills	apple-design	MIT	2d228630ba1446365f614a108cb8252f1feda202
+design	emilkowalski/skills	pick-ui-library	MIT	2d228630ba1446365f614a108cb8252f1feda202
+design	emilkowalski/skills	prototype	MIT	2d228630ba1446365f614a108cb8252f1feda202
+motion	emilkowalski/skills	animate	MIT	2d228630ba1446365f614a108cb8252f1feda202
+motion	emilkowalski/skills	review-animations	MIT	2d228630ba1446365f614a108cb8252f1feda202
+motion	emilkowalski/skills	animation-performance	MIT	2d228630ba1446365f614a108cb8252f1feda202
+references	voidmatcha/ui-clone-skills	ui-capture	Apache-2.0	c6dacc7a14ca1bc655dbda99c25cbfd5f0baf3e6
+references	voidmatcha/ui-clone-skills	ui-reverse-engineering	Apache-2.0	c6dacc7a14ca1bc655dbda99c25cbfd5f0baf3e6
+references	arvindrk/extract-design-system	extract-design-system	MIT	1873741ba8dea755e35e6e15134f7918cd58e036
+code	vercel-labs/agent-skills	vercel-react-best-practices	see repository	063bee94c3f4df8453406c830b0a7df0f2860278
+code	vercel-labs/agent-skills	vercel-composition-patterns	see repository	063bee94c3f4df8453406c830b0a7df0f2860278
+code	supabase/agent-skills	supabase	MIT	c9be0e931b7930f7d02126d04774d904c381e7d7
+code	supabase/agent-skills	supabase-postgres-best-practices	MIT	c9be0e931b7930f7d02126d04774d904c381e7d7
+testing	microsoft/playwright-cli	playwright-cli	Apache-2.0	b85c7a736bb473bf55b584e54a09ffa698d6d871
+security	trailofbits/skills	differential-review	CC-BY-SA-4.0	5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0
+extra	emilkowalski/skills	emil-design-eng	MIT	2d228630ba1446365f614a108cb8252f1feda202
+extra	emilkowalski/skills	break-ui	MIT	2d228630ba1446365f614a108cb8252f1feda202
+extra	emilkowalski/skills	find-animation-opportunities	MIT	2d228630ba1446365f614a108cb8252f1feda202
+extra	emilkowalski/skills	improve-animations	MIT	2d228630ba1446365f614a108cb8252f1feda202
+extra	emilkowalski/skills	animation-vocabulary	MIT	2d228630ba1446365f614a108cb8252f1feda202
+extra	motiondivision/ai-kit	motion	see repository	b7e2c68fb3b159b6c849d4d2c5c7a17b408689fc
+extra	trailofbits/skills	audit-context-building	CC-BY-SA-4.0	5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0
+extra	trailofbits/skills	variant-analysis	CC-BY-SA-4.0	5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0
+extra	trailofbits/skills	property-based-testing	CC-BY-SA-4.0	5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0
+extra	SkyNotSilent/true-web-clone	true-web-clone	MIT	be3c136fd3988e38b72efc3480b382aca0f584c6
+extra	Leonxlnx/taste-skill	design-taste-frontend	MIT	f624f37a8c650b9cc550253104925efe4c8de246
+extra	dembrandt/dembrandt-skills	extract-design	MIT	5de7a90686fbbbde3f26a2afa8d258cedcd1153e
+extra	morluto/rea	reverse-engineer-anything	MIT	279c590ef6bb737d4a48ea696a0ae5eb30010b3d
