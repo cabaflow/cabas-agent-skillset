@@ -69,7 +69,7 @@ if command -v npx >/dev/null; then
   AGENT_FLAGS=()
   for agent in "${AGENT_LIST[@]}"; do AGENT_FLAGS+=(-a "$agent"); done
   # shellcheck disable=SC2086
-  DISABLE_TELEMETRY="${DISABLE_TELEMETRY:-1}" npx -y skills remove $PUBLIC "${AGENT_FLAGS[@]}" -g -y < /dev/null \
+  DISABLE_TELEMETRY="${DISABLE_TELEMETRY:-1}" npx -y skills@1.7.4 remove $PUBLIC "${AGENT_FLAGS[@]}" -g -y < /dev/null \
     && echo "✓ Public skills removed"
 else
   echo "Node.js (npx) is missing: could not remove the public skills. Delete them from ~/.agents/skills and ~/.claude/skills."

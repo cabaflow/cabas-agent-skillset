@@ -13,6 +13,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - English docs: README, catalog, prompt templates, routing test README. Spanish versions kept as `.es.md`.
 
 ### Changed
+- The installer fetches each pinned commit with git and passes the folder to the `skills` CLI, now pinned to 1.7.4. The CLI's own clone-by-SHA failed on GitHub Actions runners.
 - Core pack cut from 42 to 18 public skills (plus 2 own). 9 moved to the optional `extra` group (13 optional in total), 15 removed (see `docs/catalog.md`).
 - Script options and messages in English (`--list`, `--agents`, `--latest`, `--no-gate`); the old Spanish options still work.
 - Test cases updated for the new core; `ABS_CASES` selects the case file; cases that need an optional skill carry a `core` expectation.

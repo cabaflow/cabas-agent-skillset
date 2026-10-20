@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Installs Caba's Agent Skillset: the 2 own skills, the public skills in manifest/skills.tsv
 # (each at its pinned commit) and the routing rules in the agent's global instructions.
-# Needs Node.js (npx) and git. Public skills are downloaded from their original repositories.
+# Needs Node.js (npx) and git. Public skills are downloaded from their original repositories
+# with git and installed with the "skills" CLI (pinned version).
 #
 # Usage:
 #   bash install.sh                          # core pack, for Claude Code and Codex
@@ -135,15 +136,35 @@ done
 AGENT_FLAGS=()
 for agent in "${AGENT_LIST[@]}"; do AGENT_FLAGS+=(-a "$agent"); done
 
+# Pinned commits are fetched with git and handed to the CLI as a local folder: the CLI's own
+# clone-by-SHA is not reliable on every machine.
+SRC="$(mktemp -d)"
+trap 'rm -rf "$SRC"' EXIT
+fetch_pinned() {
+  local dest="$SRC/$(echo "$1-$2" | tr '/' '_')"
+  rm -rf "$dest" && mkdir -p "$dest" &&
+    git -C "$dest" init -q &&
+    git -C "$dest" remote add origin "https://github.com/$1.git" &&
+    git -C "$dest" fetch -q --depth 1 origin "$2" &&
+    git -C "$dest" -c advice.detachedHead=false checkout -q FETCH_HEAD &&
+    echo "$dest"
+}
+
 FAILED=""
 export DISABLE_TELEMETRY="${DISABLE_TELEMETRY:-1}"
 while read -r key skills; do
   repo="${key%%|*}"; sha="${key#*|}"
   SKILL_FLAGS=()
   for s in $skills; do SKILL_FLAGS+=(--skill "$s"); done
-  if [ "$LATEST" = 1 ] || [ -z "$sha" ]; then source="$repo"; else source="https://github.com/$repo/tree/$sha"; fi
   echo "→ $repo${sha:+ @ ${sha:0:7}}: $skills"
-  if ! npx -y skills add "$source" "${SKILL_FLAGS[@]}" "${AGENT_FLAGS[@]}" -g -y < /dev/null; then
+  if [ "$LATEST" = 1 ] || [ -z "$sha" ]; then
+    source="$repo"
+  elif ! source="$(fetch_pinned "$repo" "$sha")"; then
+    echo "✗ Could not fetch $repo at $sha"
+    FAILED="$FAILED $repo"
+    continue
+  fi
+  if ! npx -y skills@1.7.4 add "$source" "${SKILL_FLAGS[@]}" "${AGENT_FLAGS[@]}" -g -y < /dev/null; then
     FAILED="$FAILED $repo"
   fi
 done <<< "$PLAN"
