@@ -11,11 +11,11 @@
 #   bash install.sh --list                   # show what would be installed, install nothing
 #   bash install.sh --latest                 # latest version of each skill, not the pinned commit
 #   bash install.sh --no-gate                # skip the gate (local hook that suggests skills)
-#   bash install.sh --full-descriptions      # Claude Code: list pack skills with their descriptions
+#   bash install.sh --full-descriptions      # list pack skills with their full descriptions
 #
 # By default, Claude Code lists the pack's skills by name only (skillOverrides "name-only" in
-# ~/.claude/settings.json) and the routing rules say when to use each one. That keeps the fixed
-# cost per message low. It also sets DISABLE_TELEMETRY=1 for the "skills" CLI.
+# ~/.claude/settings.json), Codex doesn't list them (disabled in ~/.codex/config.toml), and the
+# routing rules say when and where to load each one. That keeps the fixed cost per message low. It also sets DISABLE_TELEMETRY=1 for the "skills" CLI.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -100,7 +100,11 @@ for agent in "${AGENT_LIST[@]}"; do
     { while (blank > 0) { print ""; blank-- } print }
   ' "$file" > "$tmp"
   {
-    cat "$tmp"; printf '\n%s\n' "$START"; cat "$DIR/routing/rules.md"
+    cat "$tmp"; printf '\n%s\n' "$START"; head -n 1 "$DIR/routing/rules.md"
+    if [ "$agent" = codex ] && [ "$NAME_ONLY" = 1 ]; then
+      echo "These skills are not in your skill list, to save context. To use one, read $HOME/.agents/skills/<name>/SKILL.md (ui-convergence and honest-delivery: ${CODEX_HOME:-$HOME/.codex}/skills/<name>/SKILL.md)."
+    fi
+    tail -n +2 "$DIR/routing/rules.md"
     if [ "$EXTRA" = 1 ]; then cat "$DIR/routing/rules-extra.md"; fi
     printf '%s\n' "$END"
   } > "$file"
@@ -132,6 +136,23 @@ for agent in "${AGENT_LIST[@]}"; do
       || echo "⚠ Could not set name-only listing: fix $SETTINGS. Skills will show full descriptions."
   elif [ -f "$SETTINGS" ]; then
     node "$DIR/hooks/settings.mjs" clear-name-only "$SETTINGS" $OWN $ALL_PUBLIC || true
+  fi
+done
+
+# 3b. Codex only: keep the pack out of the skill list (it has no name-only mode). The rules
+# above tell Codex where to read each skill.
+for agent in "${AGENT_LIST[@]}"; do
+  [ "$agent" = "codex" ] || continue
+  CONFIG="${CODEX_HOME:-$HOME/.codex}/config.toml"
+  if [ "$NAME_ONLY" = 1 ]; then
+    paths=()
+    for s in $PUBLIC; do paths+=("$HOME/.agents/skills/$s/SKILL.md"); done
+    for s in $OWN; do paths+=("${CODEX_HOME:-$HOME/.codex}/skills/$s/SKILL.md"); done
+    node "$DIR/hooks/codex-config.mjs" add "$CONFIG" "${paths[@]}" \
+      && echo "✓ Pack skills hidden from Codex's skill list in $CONFIG" \
+      || echo "⚠ Could not update $CONFIG. Codex will list the skills with full descriptions."
+  elif [ -f "$CONFIG" ]; then
+    node "$DIR/hooks/codex-config.mjs" remove "$CONFIG" || true
   fi
 done
 

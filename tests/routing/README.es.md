@@ -13,3 +13,13 @@ ABS_CASES=cases_holdout2.json python3 tests/routing/score.py h2.json
 - Cada pedido es una consulta real a `claude -p` y **consume tu límite de uso**. Córrelo en tandas chicas; `run.py` usa 3 workers y se detiene si ve el aviso de límite.
 - Usa `--setting-sources project,local`: la prueba ve solo el pack y las skills que trae Claude Code. `setup.sh` copia los `skillOverrides` del pack (modo solo nombre) a la configuración del proyecto.
 - Un pedido es **exacto** si carga todas las skills requeridas y ninguna fuera de las aceptables. Los casos con `req` vacío comprueban que no se cargue nada.
+
+## Codex
+
+```bash
+bash tests/routing/setup_codex.sh
+python3 tests/routing/run_codex.py codex-rules c1.json
+python3 tests/routing/score.py c1.json
+```
+
+Cada caso es un `codex exec` real y consume tu uso de Codex. Codex necesita un comando para leer un archivo, así que la instrucción de prueba solo le permite leer `SKILL.md`; una skill cuenta como cargada cuando Codex la lee.

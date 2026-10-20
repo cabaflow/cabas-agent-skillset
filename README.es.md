@@ -2,7 +2,7 @@
 
 Un pack chico y probado de skills públicas para desarrollar, diseñar y entregar software con **Claude Code** y **Codex**. Trae reglas de ruteo que le dicen al agente qué skill cargar en cada pedido, y ninguna en los pedidos triviales. English: [README.md](README.md).
 
-- **Barato:** en Claude Code el pack suma cerca de **+3%** al contexto de cada mensaje (medido abajo), porque las skills se muestran solo por nombre y una tabla corta de reglas hace el ruteo.
+- **Barato:** el pack suma cerca de **+3%** al contexto de cada mensaje, tanto en Claude Code como en Codex (medido abajo). Las skills quedan fuera de la lista que se carga siempre, y una tabla corta de reglas hace el ruteo.
 - **Versiones fijadas:** cada skill se instala en el commit exacto con que se probó. Un bot mensual propone actualizar solo las skills cuyos archivos cambiaron.
 - **Medido:** el ruteo se comprueba con pruebas repetibles (`tests/`).
 - **Reversible:** `uninstall.sh` quita lo que agregó y nada más.
@@ -22,7 +22,10 @@ Después reinicia Claude Code o Codex. El instalador:
 1. Copia las 2 skills propias.
 2. Descarga las 18 skills públicas del núcleo desde sus repositorios originales, cada una en su commit fijado.
 3. Agrega las reglas de ruteo ([routing/rules.md](routing/rules.md), ~420 tokens) a `~/.claude/CLAUDE.md` y `~/.codex/AGENTS.md`, dentro de un bloque marcado que se reemplaza al reinstalar.
-4. Solo en Claude Code: deja las skills del pack en `"name-only"` dentro de `skillOverrides` en `~/.claude/settings.json` e instala el **gate**, un hook local que sugiere skills sin llamar al modelo. No toca tus otras configuraciones, hooks ni overrides.
+4. En Claude Code: deja las skills del pack en `"name-only"` dentro de `skillOverrides` en `~/.claude/settings.json` e instala el **gate**, un hook local que sugiere skills sin llamar al modelo.
+5. En Codex: agrega un bloque marcado a `~/.codex/config.toml` que desactiva las skills del pack en la lista de skills (`[[skills.config]] enabled = false`); las reglas de `AGENTS.md` le dicen a Codex dónde leer cada una.
+
+No toca tus otras configuraciones, hooks ni overrides.
 
 Opciones:
 
@@ -32,7 +35,7 @@ bash install.sh --extra                # suma las 13 skills opcionales y su lín
 bash install.sh --agents claude-code   # solo Claude Code (o: codex)
 bash install.sh --latest               # última versión de cada skill, no la fijada
 bash install.sh --no-gate              # sin el hook del gate
-bash install.sh --full-descriptions    # muestra las skills con su descripción completa (cuesta más)
+bash install.sh --full-descriptions    # muestra las skills normalmente, con descripción (cuesta más)
 ```
 
 Las opciones en español de la versión anterior (`--lista`, `--agentes`, `--ultimas`, `--sin-gate`) siguen funcionando.
@@ -59,7 +62,7 @@ Las que llevan `/` se activan solo escribiéndolas; así lo decidió su autor. E
 
 Solo pides lo que necesitas. "Me gusta cómo se ve stripe.com, quiero algo así" carga `ui-capture`, `extract-design-system` e `impeccable`; "el modal se abre de golpe" carga solo `animate`; "renombra esta variable" no carga nada.
 
-Normalmente Claude Code pone en el contexto la descripción de cada skill instalada en todos los mensajes. El pack, en cambio, muestra sus skills solo por nombre (unos 8 tokens cada una, con la opción documentada [`skillOverrides`](https://code.claude.com/docs/en/skills#override-skill-visibility-from-settings)). La tabla de reglas en `CLAUDE.md` dice cuándo usar cada una, y el cuerpo completo de una skill se lee solo cuando se usa. El costo: una skill del pack que las reglas no mencionan casi nunca se va a activar sola, porque el modelo no ve su descripción.
+Normalmente Claude Code pone en el contexto la descripción de cada skill instalada en todos los mensajes. El pack, en cambio, muestra sus skills solo por nombre (unos 8 tokens cada una, con la opción documentada [`skillOverrides`](https://code.claude.com/docs/en/skills#override-skill-visibility-from-settings)). La tabla de reglas en `CLAUDE.md` dice cuándo usar cada una. Codex no tiene modo "solo nombre", así que ahí las skills del pack se desactivan en la lista y las reglas dicen dónde leerlas (`~/.agents/skills/<nombre>/SKILL.md`). El cuerpo completo de una skill se lee solo cuando se usa. El costo: una skill del pack que las reglas no mencionan casi nunca se va a activar sola, porque el modelo no ve su descripción.
 
 **El gate** es un hook `UserPromptSubmit` en Node que compara el pedido con patrones locales ([hooks/triggers.json](hooks/triggers.json)), sin llamar al modelo. Si encuentra coincidencia, agrega una línea de ~20 tokens ("Skill gate: load animate…"); si no, no agrega nada. Es un refuerzo débil (12/20 por sí solo en los 20 pedidos nuevos); el trabajo lo hacen las reglas.
 
@@ -85,10 +88,20 @@ Ruteo en Claude Code con la instalación por defecto:
 
 Errores: "copia la paleta de colores de airbnb" cargó además `impeccable`; "busca más casos de este XSS" cargó `systematic-debugging` (la correcta, `variant-analysis`, es opcional); "ponle una barra de progreso a la carga" cargó `impeccable` en vez de `honest-delivery` o `animate`. En promedio, 1,05 skills por pedido y ~52.000 tokens por pedido de prueba.
 
+Ruteo y costo en Codex (codex-cli 0.162.1, modelo por defecto, `CODEX_HOME` aislado solo con tu login; `tests/routing/run_codex.py`). Una skill cuenta como cargada cuando Codex lee su `SKILL.md`. Contexto medido con `codex exec "hola"`:
+
+| Configuración en Codex | Contexto por mensaje | vs. vacío | `cases.json` (57) | nuevos (20) | Tokens por pedido de prueba |
+|---|---:|---:|---:|---:|---:|
+| Vacío | 14.333 | — | | | |
+| Núcleo, skills en la lista + reglas | 16.657 | +16,2% | 53/57 | 17/20 | ~33.800 |
+| **Núcleo, fuera de la lista + reglas (por defecto)** | **14.754** | **+2,9%** | **54/57** | **16/20** | **~30.200** |
+
+Las dos configuraciones de Codex suman 70/77, así que, dentro del ruido de esta muestra, sacar las skills de la lista no cuesta precisión y ahorra ~1.900 tokens en cada mensaje. En los pedidos nuevos Codex nunca dejó de cargar una skill requerida; sus errores son skills de más (`brainstorming`, `impeccable`, `systematic-debugging`, `ui-convergence` y su propio `code-review`), más el mismo error de la barra de progreso que tuvo Claude.
+
 Comparación anterior (22 pedidos): sin ruteo, 17/22; con una skill router, 18/22 y ~30.000 tokens más por pedido; con reglas en `CLAUDE.md`, 22/22.
 
 **Límites, con honestidad:**
-- `skillOverrides` existe solo en Claude Code. **Codex no tiene modo "solo nombre"**: paga la descripción completa de cada skill instalada (con tope del 2% de su contexto), así que el pack también se mantiene chico para Codex. Codex dio 16/20 con las reglas anteriores; en esta versión no se volvió a medir.
+- En Codex, `$nombre` ya no inyecta una skill desactivada, pero Codex igual la lee a través de las reglas (lo comprobé una vez con `$animate`). Codex es algo menos preciso que Claude Code (16–17/20 frente a 19/20 en pedidos nuevos), sobre todo porque carga una skill de más.
 - El gate junto al modelo no se volvió a medir en esta versión (el gate solo da 12/20).
 - Los casos de prueba los escribió el autor. Los 20 pedidos nuevos son la mejor señal de cómo generaliza, y 20 es una muestra chica.
 - La ganancia frente a Claude sin ruteo es modesta (17/22 → 22/22 en la comparación anterior). El pack sirve más si todavía no sabes qué skills existen.

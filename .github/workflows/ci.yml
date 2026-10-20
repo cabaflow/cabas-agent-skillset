@@ -15,7 +15,7 @@ jobs:
           node-version: 22
       - name: Shell syntax
         run: |
-          for f in install.sh uninstall.sh tests/routing/setup.sh; do bash -n "$f"; done
+          for f in install.sh uninstall.sh tests/routing/setup.sh tests/routing/setup_codex.sh; do bash -n "$f"; done
       - name: Gate unit test
         run: node tests/gate/test.mjs
       - name: Install plan
@@ -29,5 +29,15 @@ jobs:
           bash uninstall.sh --agents claude-code
           ! grep -q "agent-basic-skillset:start" "$HOME/.claude/CLAUDE.md"
           ! grep -q '"name-only"' "$HOME/.claude/settings.json"
+      - name: Codex install and uninstall in a clean home
+        run: |
+          export HOME="$RUNNER_TEMP/home-codex" && mkdir -p "$HOME/.codex"
+          printf 'model_reasoning_effort = "high"\n' > "$HOME/.codex/config.toml"
+          bash install.sh --agents codex
+          grep -q "enabled = false" "$HOME/.codex/config.toml"
+          python3 -c 'import tomllib,os; tomllib.load(open(os.path.expanduser("~/.codex/config.toml"),"rb"))'
+          bash uninstall.sh --agents codex
+          ! grep -q "agent-basic-skillset" "$HOME/.codex/config.toml"
+          grep -q "model_reasoning_effort" "$HOME/.codex/config.toml"
       - name: Update checker syntax
         run: python3 -m py_compile scripts/check-updates.py

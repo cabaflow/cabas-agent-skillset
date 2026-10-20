@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Uninstalls Caba's Agent Skillset: removes the skills in manifest/skills.tsv (including the
 # "extra" group if present), the 2 own skills, the rules block in CLAUDE.md and AGENTS.md,
-# the gate and the name-only entries. Other skills and the rest of your instructions stay.
+# the gate, the name-only entries and the Codex config block. Other skills and the rest of
+# your instructions stay.
 #
 # Usage:
 #   bash uninstall.sh                         # Claude Code and Codex
@@ -18,7 +19,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --agents|--agentes) AGENTS="$2"; shift 2 ;;
     --retired) RETIRED=1; shift ;;
-    -h|--help) sed -n '2,11p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,12p' "$0"; exit 0 ;;
     *) echo "Unknown option: $1"; exit 1 ;;
   esac
 done
@@ -64,6 +65,14 @@ if [ -f "$SETTINGS" ] && command -v node >/dev/null; then
       echo "✓ Gate and name-only entries removed from $SETTINGS" ;;
   esac
 fi
+
+case ",$AGENTS," in
+  *,codex,*)
+    CONFIG="${CODEX_HOME:-$HOME/.codex}/config.toml"
+    if [ -f "$CONFIG" ] && command -v node >/dev/null; then
+      node "$DIR/hooks/codex-config.mjs" remove "$CONFIG" && echo "✓ Codex skill-list entries removed from $CONFIG"
+    fi ;;
+esac
 
 if command -v npx >/dev/null; then
   AGENT_FLAGS=()

@@ -10,6 +10,8 @@ All notable changes to this project are documented here. The format follows [Kee
 - `routing/rules-extra.md`, added to the rules only with `--extra`.
 - `scripts/check-updates.py` and the monthly `update-pins.yml` workflow: compare each skill's folder between its pin and upstream HEAD and open one PR with only the changed skills.
 - `manifest/retired.txt` and `uninstall.sh --retired`.
+- Codex: the pack's skills are disabled in the skill list through a marked block in `~/.codex/config.toml` (`hooks/codex-config.mjs`), and the rules tell Codex where to read them. Measured: +2.9% context per message (was +16.2%), routing 70/77 either way.
+- Codex routing test: `tests/routing/setup_codex.sh` and `run_codex.py`.
 - English docs: README, catalog, prompt templates, routing test README. Spanish versions kept as `.es.md`.
 
 ### Changed
