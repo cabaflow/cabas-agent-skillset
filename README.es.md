@@ -9,7 +9,7 @@ Un pack chico y probado de skills públicas para desarrollar, diseñar y entrega
 
 ## Instalar
 
-Necesitas [Node.js](https://nodejs.org) (para `npx`) y git.
+Necesitas [Node.js](https://nodejs.org) 22 o superior (para `npx`) y git.
 
 ```bash
 git clone https://github.com/cabaflow/cabas-agent-skillset.git

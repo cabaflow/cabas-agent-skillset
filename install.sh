@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Installs Caba's Agent Skillset: the 2 own skills, the public skills in manifest/skills.tsv
 # (each at its pinned commit) and the routing rules in the agent's global instructions.
-# Needs Node.js (npx) and git. Public skills are downloaded from their original repositories
+# Needs Node.js 22+ (npx) and git. Public skills are downloaded from their original repositories
 # with git and installed with the "skills" CLI (pinned version).
 #
 # Usage:
@@ -58,7 +58,10 @@ if [ "$LIST" = 1 ]; then
   exit 0
 fi
 
-command -v npx >/dev/null || { echo "Node.js (npx) is missing. Install it and run this script again."; exit 1; }
+command -v npx >/dev/null || { echo "Node.js (npx) is missing. Install Node.js 22 or newer and run this script again."; exit 1; }
+if [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 22 ]; then
+  echo "Node.js 22 or newer is needed (you have $(node -v)). Update it and run this script again."; exit 1
+fi
 IFS=',' read -r -a AGENT_LIST <<< "$AGENTS"
 
 # 1. Own skills.

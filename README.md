@@ -9,7 +9,7 @@ A small, tested set of public agent skills for building, designing and shipping 
 
 ## Install
 
-You need [Node.js](https://nodejs.org) (for `npx`) and git.
+You need [Node.js](https://nodejs.org) 22 or newer (for `npx`) and git.
 
 ```bash
 git clone https://github.com/cabaflow/cabas-agent-skillset.git
