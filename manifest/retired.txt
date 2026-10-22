@@ -1,6 +1,7 @@
 # Skills that earlier versions installed and this one no longer does.
 # `bash uninstall.sh --retired` also removes these.
 agent-browser
+brainstorming
 dispatching-parallel-agents
 find-skills
 finishing-a-development-branch
@@ -10,6 +11,7 @@ receiving-code-review
 requesting-code-review
 skill-creator
 subagent-driven-development
+systematic-debugging
 test-driven-development
 using-git-worktrees
 verification-before-completion

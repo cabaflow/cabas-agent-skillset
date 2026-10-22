@@ -1,6 +1,6 @@
 # Prueba de ruteo
 
-Comprueba que las reglas hacen que Claude Code cargue las skills correctas. Hay dos archivos de casos: `cases.json` (57 pedidos) y `cases_holdout2.json` (20 pedidos escritos después de las reglas).
+Comprueba que las reglas hacen que Claude Code cargue las skills correctas. Hay dos archivos de casos: `cases.json` (51 pedidos) y `cases_holdout2.json` (18 pedidos escritos después de las reglas).
 
 ```bash
 bash tests/routing/setup.sh

@@ -11,7 +11,7 @@ La hice instalando todo en una carpeta temporal, con 54 skills públicas y 3 pro
 | Instalación | 54/54 públicas y 3/3 propias instaladas en una carpeta limpia, en Claude Code y Codex | ✅ |
 | Formato de las skills propias | `name` igual a la carpeta, descripciones de 244–286 caracteres (límite 1.024), cuerpos de 29–52 líneas | ✅ |
 | Ruteo con pedidos de prueba | 10/10 pedidos con la combinación esperada, y cada uno descartó las skills que no correspondían | ✅ |
-| Activación automática | Con un pedido normal, Claude cargó directo la skill específica correcta (`animate`, `systematic-debugging`) | ✅ |
+| Activación automática | Con un pedido normal, Claude cargó directo la skill específica correcta (`animate`) | ✅ |
 | Cobertura del router | Todas las skills del perfil completo tienen una ruta; ninguna referencia apunta a una skill que no existe | ✅ Corregido |
 | Eficiencia de tokens | Entre ~800 y ~5.300 tokens fijos según el perfil | ✅ Con perfiles |
 | Seguridad | Sin descargas ejecutadas a ciegas (`curl \| sh`) ni instrucciones ocultas; los avisos detectados son defensivos | ✅ |
@@ -42,7 +42,6 @@ Qué se hizo para reducir el gasto:
 - **El catálogo y las plantillas pasaron a `docs/`**, que el agente no lee. Ahorro: ~5.000 tokens cada vez que se usaba la guía.
 - **Se sacó la parte genérica de los estándares**, que el modelo ya aplica por defecto: "simple y acabado", "claridad con personalidad", "explicaciones simples", la tabla de dogmas y "lo que no funciona".
 - **Las skills pesadas o repetidas pasaron a `extra`:** `design-taste-frontend` (~7.000 tokens y se superpone con `impeccable`) y `true-web-clone` (se superpone con `ui-reverse-engineering`).
-- **No se incluye `using-superpowers`,** porque obliga a revisar skills "con un 1% de probabilidad" en cada mensaje.
 - **El router evita apilar skills:** pone un máximo de 4 y prohíbe cargar a la vez las cuatro skills de diseño general.
 
 ## 3. Ruteo
@@ -57,18 +56,16 @@ Hice dos pruebas con `claude -p` en un proyecto aislado con las 53 skills.
 | 2 | "Este botón se ve feo, púlelo" | `impeccable` → `emil-design-eng` (+ `ui-convergence`) | `frontend-design`, `web-design-guidelines`, motion |
 | 3 | El modal se abre de golpe | `animate` | `motion` y `motion-design`, por no haber señal de Framer Motion ni Lottie |
 | 4 | Clonar el hero de linear.app | `ui-capture` → `ui-reverse-engineering` | `clone-website`, `extract-design-system` |
-| 5 | TypeError en un test | `systematic-debugging` → `test-driven-development` → `verification-before-completion` | herramientas de navegador |
-| 6 | PowerPoint de resultados | `pptx` | `docx`, `xlsx`, `pdf` |
-| 7 | App de hábitos, idea abierta | `brainstorming` (`writing-plans` cuando se aclare) | diseño y ejecución |
-| 8 | "Revisa que el dashboard esté listo" | `honest-delivery` → `verification-before-completion` | diseño, code review |
-| 9 | Nombre del rebote de iOS | `animation-vocabulary` | resto de motion |
-| 10 | PR que toca permisos | `differential-review` | `variant-analysis` y `audit-context-building`, que corresponden después |
+| 5 | PowerPoint de resultados | `pptx` | `docx`, `xlsx`, `pdf` |
+| 6 | "Revisa que el dashboard esté listo" | `honest-delivery` → `verification-before-completion` | diseño, code review |
+| 7 | Nombre del rebote de iOS | `animation-vocabulary` | resto de motion |
+| 8 | PR que toca permisos | `differential-review` | `variant-analysis` y `audit-context-building`, que corresponden después |
 
 Ningún pedido cargó más de 3 skills.
 
 ### b) Pedidos normales, sin mencionar el router
 
-Para "el modal se abre de golpe", Claude cargó `animate`. Para "TypeError en el login", cargó `systematic-debugging`. Las skills específicas se activan solas por su descripción.
+Para "el modal se abre de golpe", Claude cargó `animate`. Las skills específicas se activan solas por su descripción.
 
 Con un pedido simple el router no se activa solo, y es lo esperable: entra cuando hay que combinar varias skills, cuando se lo pide o si se instala con `--siempre`.
 
@@ -94,7 +91,7 @@ Busqué en todo el paquete nombres, nombres de proyectos privados, rutas `/Users
 ## 6. Pendientes y límites
 
 1. **Windows:** `instalar.sh` es bash. En Windows hay que usar WSL o Git Bash, o instalar cada skill a mano con `npx skills add`.
-2. **Duplicados:** si alguien ya tiene skills con nombres similares, como `superpowers-*` de otro plugin, el agente puede ver dos versiones. Conviene desinstalar una.
+2. **Duplicados:** si alguien ya tiene skills con nombres similares de otro plugin, el agente puede ver dos versiones. Conviene desinstalar una.
 3. **Versiones:** las skills se descargan en su versión vigente. Un autor puede cambiar o renombrar una skill. Si `instalar.sh` falla en un repositorio, lo informa y sigue con el resto.
 4. **Las pruebas de ruteo son una muestra:** 12 pedidos con un modelo. No demuestran que el ruteo sea perfecto en todos los casos.
 5. **Las skills propias no se compararon contra no tenerlas.** En una prueba anterior con una versión más larga, el agente sacó el mismo puntaje con y sin la skill de estándares. Las versiones nuevas son más cortas y concretas, pero su efecto no está medido.
@@ -232,10 +229,7 @@ Los 57 pedidos (42 de ajuste y 15 nuevos), con las reglas finales: **57/57 exact
 - con un `settings.json` inválido no lo modifica y el instalador sigue con el resto.
 
 **Codex (`AGENTS.md`, sin gate), 20 pedidos nuevos: 16/20**, 1,35 skills por pedido, ~57.000 tokens.
-- Un caso cargó una skill personal del equipo de prueba (`superpowers-using-superpowers`), que no viene en el pack.
-- Otro sumó `impeccable` al copiar una paleta, que es lo que indican las propias reglas.
-- Los otros dos sumaron una skill de más, razonable: `impeccable` al quitar animaciones y `systematic-debugging` ante una query lenta.
-
-En la práctica son unos 18/20.
+- Un caso sumó `impeccable` al copiar una paleta, que es lo que indican las propias reglas.
+- Otro sumó una skill de más, razonable: `impeccable` al quitar animaciones.
 
 **Configuración de Codex del equipo de prueba:** estaba apuntando a AWS Bedrock con una credencial vencida. Se quitaron las dos líneas de Bedrock de `~/.codex/config.toml`, con respaldo en `config.toml.bak-bedrock-2026-10-18`. Esto no forma parte del pack.

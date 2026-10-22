@@ -13,13 +13,6 @@ Este archivo es para personas: el agente no lo lee. Cada skill pública viene de
 | `ui-convergence` | Lleva la lista conservar / corregir / pendiente / fuera de alcance y convierte el feedback visual en comprobaciones: explora → refina → converge | Iterando una UI con feedback | ~480 |
 | `honest-delivery` | Que lo que muestra la UI sea verdad y que se revise la experiencia real antes de decir "listo" | Al mostrar progreso, resultados o demos, o al cerrar | ~430 |
 
-### Método (obra/superpowers)
-
-| Skill | Qué hace | Pídelo así | Cuerpo |
-|---|---|---|---:|
-| `brainstorming` | Aclara intención, requisitos y diseño antes de programar | "Quiero agregar X, ayúdame a definirlo antes de programar" | ~2.700 |
-| `systematic-debugging` | Reproduce, aísla la causa y corrige sin parches a ciegas | "Esto falla con este error, encuentra la causa" | ~2.600 |
-
 ### Diseño e interfaz
 
 | Skill | Qué hace | Pídelo así | Cuerpo |
@@ -91,6 +84,7 @@ Están en [`manifest/retired.txt`](../manifest/retired.txt). `bash uninstall.sh 
 |---|---|
 | `writing-plans`, `subagent-driven-development`, `dispatching-parallel-agents`, `using-git-worktrees`, `finishing-a-development-branch` | Claude Code ya planifica y usa subagentes y worktrees por su cuenta |
 | `test-driven-development`, `receiving-code-review`, `verification-before-completion` | Los modelos actuales lo hacen bien sin ayuda; `honest-delivery` cubre la revisión final |
+| `brainstorming`, `systematic-debugging` | Los modelos actuales planifican y depuran bien sin una skill de proceso; `honest-delivery` cubre la revisión final |
 | `requesting-code-review` | Claude Code trae `/code-review` |
 | `frontend-design` | Se superpone con `impeccable` |
 | `agent-browser` | Duplica a `playwright-cli` |

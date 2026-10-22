@@ -13,13 +13,6 @@ Body sizes are approximate tokens loaded only when the skill is used. In Claude 
 | `ui-convergence` | Keeps a keep / fix / pending / out-of-scope list and turns visual feedback into checks: explore → refine → converge | Iterating a UI with feedback | ~480 |
 | `honest-delivery` | Makes what the UI shows true and checks the real experience before saying "done" | Showing progress, results or demos, or closing a task | ~430 |
 
-### Method (obra/superpowers)
-
-| Skill | What it does | Ask like this | Body |
-|---|---|---|---:|
-| `brainstorming` | Clarifies intent, requirements and design before code | "I want to add X, help me define it before coding" | ~2,700 |
-| `systematic-debugging` | Reproduce, isolate the cause, fix without blind patches | "This fails with this error, find the cause" | ~2,600 |
-
 ### Design and UI
 
 | Skill | What it does | Ask like this | Body |
@@ -91,6 +84,7 @@ Listed in [`manifest/retired.txt`](../manifest/retired.txt). `bash uninstall.sh 
 |---|---|
 | `writing-plans`, `subagent-driven-development`, `dispatching-parallel-agents`, `using-git-worktrees`, `finishing-a-development-branch` | Claude Code already plans, uses subagents and worktrees on its own |
 | `test-driven-development`, `receiving-code-review`, `verification-before-completion` | Current models do this well without help; `honest-delivery` covers the final check |
+| `brainstorming`, `systematic-debugging` | Current models plan and debug well without a process skill; `honest-delivery` covers the final check |
 | `requesting-code-review` | Built-in `/code-review` |
 | `frontend-design` | Overlaps `impeccable` |
 | `agent-browser` | Duplicate of `playwright-cli` |

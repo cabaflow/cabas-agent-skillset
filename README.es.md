@@ -20,7 +20,7 @@ bash install.sh
 Después reinicia Claude Code o Codex. El instalador:
 
 1. Copia las 2 skills propias.
-2. Descarga las 18 skills públicas del núcleo desde sus repositorios originales, cada una en su commit fijado.
+2. Descarga las 16 skills públicas del núcleo desde sus repositorios originales, cada una en su commit fijado.
 3. Agrega las reglas de ruteo ([routing/rules.md](routing/rules.md), ~420 tokens) a `~/.claude/CLAUDE.md` y `~/.codex/AGENTS.md`, dentro de un bloque marcado que se reemplaza al reinstalar.
 4. En Claude Code: deja las skills del pack en `"name-only"` dentro de `skillOverrides` en `~/.claude/settings.json` e instala el **gate**, un hook local que sugiere skills sin llamar al modelo.
 5. En Codex: agrega un bloque marcado a `~/.codex/config.toml` que desactiva las skills del pack en la lista de skills (`[[skills.config]] enabled = false`); las reglas de `AGENTS.md` le dicen a Codex dónde leer cada una.
@@ -44,12 +44,11 @@ Las opciones en español de la versión anterior (`--lista`, `--agentes`, `--ult
 
 ## Qué incluye
 
-20 skills en el núcleo. El detalle, el tamaño de cada una, las opcionales y las quitadas están en [docs/catalog.es.md](docs/catalog.es.md).
+18 skills en el núcleo. El detalle, el tamaño de cada una, las opcionales y las quitadas están en [docs/catalog.es.md](docs/catalog.es.md).
 
 | Área | Skills |
 |---|---|
 | Propias | `ui-convergence` (iterar una UI con feedback sin perder lo aprobado), `honest-delivery` (lo que se muestra debe ser verdad; revisar la experiencia real antes de decir "listo") |
-| Método | `brainstorming`, `systematic-debugging` |
 | Diseño e interfaz | `impeccable`, `apple-design`, `/prototype`, `/pick-ui-library` |
 | Motion | `animate`, `animation-performance`, `/review-animations` |
 | Referencias y clonado | `ui-capture`, `ui-reverse-engineering`, `extract-design-system` |
@@ -64,7 +63,7 @@ Solo pides lo que necesitas. "Me gusta cómo se ve stripe.com, quiero algo así"
 
 Normalmente Claude Code pone en el contexto la descripción de cada skill instalada en todos los mensajes. El pack, en cambio, muestra sus skills solo por nombre (unos 8 tokens cada una, con la opción documentada [`skillOverrides`](https://code.claude.com/docs/en/skills#override-skill-visibility-from-settings)). La tabla de reglas en `CLAUDE.md` dice cuándo usar cada una. Codex no tiene modo "solo nombre", así que ahí las skills del pack se desactivan en la lista y las reglas dicen dónde leerlas (`~/.agents/skills/<nombre>/SKILL.md`). El cuerpo completo de una skill se lee solo cuando se usa. El costo: una skill del pack que las reglas no mencionan casi nunca se va a activar sola, porque el modelo no ve su descripción.
 
-**El gate** es un hook `UserPromptSubmit` en Node que compara el pedido con patrones locales ([hooks/triggers.json](hooks/triggers.json)), sin llamar al modelo. Si encuentra coincidencia, agrega una línea de ~20 tokens ("Skill gate: load animate…"); si no, no agrega nada. Es un refuerzo débil (12/20 por sí solo en los 20 pedidos nuevos); el trabajo lo hacen las reglas.
+**El gate** es un hook `UserPromptSubmit` en Node que compara el pedido con patrones locales ([hooks/triggers.json](hooks/triggers.json)), sin llamar al modelo. Si encuentra coincidencia, agrega una línea de ~20 tokens ("Skill gate: load animate…"); si no, no agrega nada. Es un refuerzo débil (12/18 por sí solo en los 18 pedidos nuevos); el trabajo lo hacen las reglas.
 
 ## Costo y precisión (medido el 19-10-2026)
 
@@ -83,26 +82,26 @@ Ruteo en Claude Code con la instalación por defecto:
 
 | Prueba | Exactos |
 |---|---:|
-| `cases.json`, 57 pedidos | **55/57** (53/57 si se cuentan 2 casos que piden skills opcionales que no están en el núcleo) |
-| `cases_holdout2.json`, 20 pedidos escritos después de las reglas | **19/20** |
+| `cases.json`, 51 pedidos | **49/51** (47/51 si se cuentan 2 casos que piden skills opcionales que no están en el núcleo) |
+| `cases_holdout2.json`, 18 pedidos escritos después de las reglas | **17/18** |
 
-Errores: "copia la paleta de colores de airbnb" cargó además `impeccable`; "busca más casos de este XSS" cargó `systematic-debugging` (la correcta, `variant-analysis`, es opcional); "ponle una barra de progreso a la carga" cargó `impeccable` en vez de `honest-delivery` o `animate`. En promedio, 1,05 skills por pedido y ~52.000 tokens por pedido de prueba.
+Errores: "copia la paleta de colores de airbnb" cargó además `impeccable`; "ponle una barra de progreso a la carga" cargó `impeccable` en vez de `honest-delivery` o `animate`. En promedio, 1,05 skills por pedido y ~52.000 tokens por pedido de prueba.
 
 Ruteo y costo en Codex (codex-cli 0.162.1, modelo por defecto, `CODEX_HOME` aislado solo con tu login; `tests/routing/run_codex.py`). Una skill cuenta como cargada cuando Codex lee su `SKILL.md`. Contexto medido con `codex exec "hola"`:
 
-| Configuración en Codex | Contexto por mensaje | vs. vacío | `cases.json` (57) | nuevos (20) | Tokens por pedido de prueba |
+| Configuración en Codex | Contexto por mensaje | vs. vacío | `cases.json` (51) | nuevos (18) | Tokens por pedido de prueba |
 |---|---:|---:|---:|---:|---:|
 | Vacío | 14.333 | — | | | |
-| Núcleo, skills en la lista + reglas | 16.657 | +16,2% | 53/57 | 17/20 | ~33.800 |
-| **Núcleo, fuera de la lista + reglas (por defecto)** | **14.754** | **+2,9%** | **54/57** | **16/20** | **~30.200** |
+| Núcleo, skills en la lista + reglas | 16.657 | +16,2% | 47/51 | 15/18 | ~33.800 |
+| **Núcleo, fuera de la lista + reglas (por defecto)** | **14.754** | **+2,9%** | **48/51** | **14/18** | **~30.200** |
 
-Las dos configuraciones de Codex suman 70/77, así que, dentro del ruido de esta muestra, sacar las skills de la lista no cuesta precisión y ahorra ~1.900 tokens en cada mensaje. En los pedidos nuevos Codex nunca dejó de cargar una skill requerida; sus errores son skills de más (`brainstorming`, `impeccable`, `systematic-debugging`, `ui-convergence` y su propio `code-review`), más el mismo error de la barra de progreso que tuvo Claude.
+Las dos configuraciones de Codex suman 62/69, así que, dentro del ruido de esta muestra, sacar las skills de la lista no cuesta precisión y ahorra ~1.900 tokens en cada mensaje. En los pedidos nuevos Codex nunca dejó de cargar una skill requerida; sus errores son skills de más (`impeccable`, `ui-convergence` y su propio `code-review`), más el mismo error de la barra de progreso que tuvo Claude.
 
 Comparación anterior (22 pedidos): sin ruteo, 17/22; con una skill router, 18/22 y ~30.000 tokens más por pedido; con reglas en `CLAUDE.md`, 22/22.
 
 **Límites, con honestidad:**
-- En Codex, `$nombre` ya no inyecta una skill desactivada, pero Codex igual la lee a través de las reglas (lo comprobé una vez con `$animate`). Codex es algo menos preciso que Claude Code (16–17/20 frente a 19/20 en pedidos nuevos), sobre todo porque carga una skill de más.
-- El gate junto al modelo no se volvió a medir en esta versión (el gate solo da 12/20).
+- En Codex, `$nombre` ya no inyecta una skill desactivada, pero Codex igual la lee a través de las reglas (lo comprobé una vez con `$animate`). Codex es algo menos preciso que Claude Code (14–15/18 frente a 17/18 en pedidos nuevos), sobre todo porque carga una skill de más.
+- El gate junto al modelo no se volvió a medir en esta versión (el gate solo da 12/18).
 - Los casos de prueba los escribió el autor. Los 20 pedidos nuevos son la mejor señal de cómo generaliza, y 20 es una muestra chica.
 - La ganancia frente a Claude sin ruteo es modesta (17/22 → 22/22 en la comparación anterior). El pack sirve más si todavía no sabes qué skills existen.
 
