@@ -6,7 +6,6 @@
    "supabase"
   ],
   "ok": [
-   "brainstorming",
    "vercel-react-best-practices",
    "supabase-postgres-best-practices"
   ]
@@ -54,22 +53,6 @@
   "ok": [
    "ui-capture"
   ]
- },
- {
-  "id": 6,
-  "q": "Me falla este test con TypeError: cannot read properties of undefined (reading 'user')",
-  "req": [
-   "systematic-debugging"
-  ],
-  "ok": []
- },
- {
-  "id": 7,
-  "q": "Quiero hacer una app de hábitos, todavía no sé bien cómo",
-  "req": [
-   "brainstorming"
-  ],
-  "ok": []
  },
  {
   "id": 8,
@@ -124,8 +107,7 @@
    "animation-performance"
   ],
   "ok": [
-   "review-animations",
-   "systematic-debugging"
+   "review-animations"
   ]
  },
  {
@@ -142,9 +124,7 @@
   "id": 14,
   "q": "Implementa el plan que está en docs/plan.md",
   "req": [],
-  "ok": [
-   "brainstorming"
-  ]
+  "ok": []
  },
  {
   "id": 15,
@@ -201,7 +181,6 @@
    "impeccable"
   ],
   "ok": [
-   "brainstorming",
    "ui-convergence",
    "impeccable"
   ]
@@ -219,18 +198,9 @@
   "ok": []
  },
  {
-  "id": 23,
-  "q": "My login page throws a 500 error right after deploying",
-  "req": [
-   "systematic-debugging"
-  ],
-  "ok": []
- },
- {
   "id": 24,
   "q": "Arregla el bug del carrito que duplica productos y después anima el botón de agregar",
   "req": [
-   "systematic-debugging",
    "animate"
   ],
   "ok": []
@@ -324,8 +294,7 @@
   "req": [],
   "ok": [
    "impeccable",
-   "ui-convergence",
-   "brainstorming"
+   "ui-convergence"
   ],
   "says": "/prototype"
  },
@@ -336,7 +305,6 @@
    "vercel-react-best-practices"
   ],
   "ok": [
-   "systematic-debugging",
    "vercel-composition-patterns"
   ]
  },
@@ -374,17 +342,6 @@
     "differential-review"
    ]
   }
- },
- {
-  "id": 37,
-  "q": "Estoy armando una app de reservas para peluquerías: los clientes eligen hora, el peluquero confirma y se manda un recordatorio. Uso Next.js y Supabase. ¿Me ayudas a pensar cómo armar todo?",
-  "req": [
-   "brainstorming"
-  ],
-  "ok": [
-   "supabase",
-   "supabase-postgres-best-practices"
-  ]
  },
  {
   "id": 38,
@@ -429,14 +386,6 @@
   "ok": []
  },
  {
-  "id": 101,
-  "q": "Mi app de Expo se cierra apenas abro la cámara",
-  "req": [
-   "systematic-debugging"
-  ],
-  "ok": []
- },
- {
   "id": 102,
   "q": "Me encanta el estilo de la web de Notion, quiero esa vibra en mi dashboard",
   "req": [
@@ -472,14 +421,6 @@
   ]
  },
  {
-  "id": 105,
-  "q": "Quiero una app para gestionar turnos de enfermería, ayúdame a definir el alcance",
-  "req": [
-   "brainstorming"
-  ],
-  "ok": []
- },
- {
   "id": 106,
   "q": "Revisa los cambios de este PR antes de mergear",
   "req": [],
@@ -508,8 +449,7 @@
   ],
   "ok": [
    "animate",
-   "animation-performance",
-   "systematic-debugging"
+   "animation-performance"
   ]
  },
  {
@@ -519,7 +459,6 @@
    "impeccable"
   ],
   "ok": [
-   "brainstorming",
    "impeccable",
    "honest-delivery",
    "dataviz"

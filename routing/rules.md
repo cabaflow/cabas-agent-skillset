@@ -1,7 +1,5 @@
 ## Skill routing (Caba's Agent Skillset)
 These skills may be listed by name only; this table says when to load them. Load only skills whose trigger matches, usually 1, at most 3. Trivial edits and plain questions: load none.
-- Bug, error, failing test → systematic-debugging
-- New idea with unclear scope → brainstorming
 - New page, landing, or polishing/fixing an existing UI → impeccable
 - User likes a site or app and wants something similar → ui-capture + extract-design-system, then impeccable to adapt
 - Exact clone of a URL → ui-capture + ui-reverse-engineering

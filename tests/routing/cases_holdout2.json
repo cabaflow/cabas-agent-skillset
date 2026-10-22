@@ -38,14 +38,6 @@
   ]
  },
  {
-  "id": 205,
-  "q": "El build de Next.js falla en Vercel con 'Module not found'",
-  "req": [
-   "systematic-debugging"
-  ],
-  "ok": []
- },
- {
   "id": 206,
   "q": "Agrega autenticación con magic link usando Supabase",
   "req": [
@@ -78,14 +70,6 @@
   ]
  },
  {
-  "id": 209,
-  "q": "Tengo la idea de una red social para músicos, ¿por dónde parto?",
-  "req": [
-   "brainstorming"
-  ],
-  "ok": []
- },
- {
   "id": 210,
   "q": "Escribe pruebas unitarias para el carrito de compras",
   "req": [],
@@ -99,11 +83,9 @@
   "req": [],
   "ok": [
    "impeccable",
-   "systematic-debugging",
    "vercel-react-best-practices"
   ],
   "anyof": [
-   "systematic-debugging",
    "vercel-react-best-practices"
   ]
  },
@@ -149,7 +131,6 @@
   ],
   "ok": [
    "dataviz",
-   "brainstorming",
    "impeccable",
    "honest-delivery"
   ]
@@ -161,8 +142,7 @@
    "animation-performance"
   ],
   "ok": [
-   "animate",
-   "systematic-debugging"
+   "animate"
   ]
  },
  {

@@ -38,17 +38,6 @@
   },
   {
    "skills": [
-    "systematic-debugging"
-   ],
-   "any": [
-    "\\b(bug|error|falla|fallo|crash|se cae|se cierra|se rompe|no funciona|no anda|exception|stack ?trace|typeerror|undefined|500|404|broken|throws|failing)\\b"
-   ],
-   "not": [
-    "\\bno hay (ningun )?error\\b"
-   ]
-  },
-  {
-   "skills": [
     "animation-performance"
    ],
    "any": [
@@ -97,15 +86,6 @@
    ],
    "any": [
     "\\b(esta listo|esta lista|listo para|lista para|la puedo publicar|lo puedo publicar|puedo publicar|revisa que este|ready to ship|ready for|barra de progreso|progress bar|demo para)\\b"
-   ]
-  },
-  {
-   "skills": [
-    "brainstorming"
-   ],
-   "any": [
-    "\\b(no se (bien )?como|todavia no se|ayudame a (pensar|definir)|definir el alcance|idea de app|quiero (hacer|armar|crear) una app|how should i|help me think)\\b",
-    "\\b(me )?ayudas? a pensar\\b"
    ]
   },
   {
